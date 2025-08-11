@@ -32,4 +32,5 @@ This project uses an ESP32 to:
 | Power 5V           | 5V Pin |
 
 ## Wiring Diagram
-![Wiring Diagram](docs/wiring-diagram.png)
+![Freezer Sensor mk1_bb](https://github.com/user-attachments/assets/4d910350-78e9-47eb-bb75-cd98e599055e)
+
