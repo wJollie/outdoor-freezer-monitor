@@ -62,7 +62,7 @@ This device uses an **ESP32** with temperature sensors and a reed switch to dete
 ### 2. Install Required Libraries
 In Arduino IDE:
 - **Sketch → Include Library → Manage Libraries…**
-- Install:
+- **Install:
 - `OneWire` by Paul Stoffregen
 - `DallasTemperature` by Miles Burton
 
@@ -71,45 +71,45 @@ In Arduino IDE:
 ```bash
 git clone https://github.com/wJollie/outdoor-freezer-monitor.git
 ```
--Open in Arduino IDE.
+- **Open in Arduino IDE.
 
--Select Tools → Board → ESP32 Dev Module (or your exact model).
+- **Select Tools → Board → ESP32 Dev Module (or your exact model).
 
--Select the correct COM port under Tools → Port.
+- **Select the correct COM port under Tools → Port.
 
--Click Upload.
+- **Click Upload.
 
-# How It Works
--Boot – ESP32 initializes sensors, sets pin modes, and reports to Serial.
+## How It Works
+- **Boot – ESP32 initializes sensors, sets pin modes, and reports to Serial.
 
--Temperature check – Reads both DS18B20 sensors every 5 seconds.
+- **Temperature check – Reads both DS18B20 sensors every 5 seconds.
 
--Door check – Monitors reed switch state every loop (~0.5s delay).
+- **Door check – Monitors reed switch state every loop (~0.5s delay).
 
--Alert logic – If door is open or temp rises above threshold:
+- **Alert logic – If door is open or temp rises above threshold:
 
--LED turns on
+- **LED turns on
 
--Buzzer sounds
+- **Buzzer sounds
 
--Logging – Data is printed to Serial Monitor for debugging.
+- **Logging – Data is printed to Serial Monitor for debugging.
 
-#Build Notes
--All grounds join at a single screw terminal for easier wiring.
+##Build Notes
+- **All grounds join at a single screw terminal for easier wiring.
 
--DS18B20s share a single data pin with a 4.7 kΩ pull-up resistor to 3V3.
+- **DS18B20s share a single data pin with a 4.7 kΩ pull-up resistor to 3V3.
 
--LED has a 330 Ω resistor in series to limit current.
+- **LED has a 330 Ω resistor in series to limit current.
 
--Reed switch uses INPUT_PULLUP in code, so no external resistor is required.
+- **Reed switch uses INPUT_PULLUP in code, so no external resistor is required.
 
--UPS module powers the ESP32 via 5 V pin; battery backup prevents false resets.
+- **UPS module powers the ESP32 via 5 V pin; battery backup prevents false resets.
 
-#Future Improvements
--Wi-Fi integration for push notifications
+##Future Improvements
+- **Wi-Fi integration for push notifications
 
--OLED display module for local readings
+- **OLED display module for local readings
 
--Waterproof enclosure for outdoor mounting
+- **Waterproof enclosure for outdoor mounting
 
--Logging to microSD card
+- **Logging to microSD card
