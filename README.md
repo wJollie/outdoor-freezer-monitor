@@ -70,3 +70,46 @@ In Arduino IDE:
 - Clone this repository:
 ```bash
 git clone https://github.com/wJollie/outdoor-freezer-monitor.git
+```
+-Open in Arduino IDE.
+
+-Select Tools → Board → ESP32 Dev Module (or your exact model).
+
+-Select the correct COM port under Tools → Port.
+
+-Click Upload.
+
+# How It Works
+-Boot – ESP32 initializes sensors, sets pin modes, and reports to Serial.
+
+-Temperature check – Reads both DS18B20 sensors every 5 seconds.
+
+-Door check – Monitors reed switch state every loop (~0.5s delay).
+
+-Alert logic – If door is open or temp rises above threshold:
+
+-LED turns on
+
+-Buzzer sounds
+
+-Logging – Data is printed to Serial Monitor for debugging.
+
+#Build Notes
+-All grounds join at a single screw terminal for easier wiring.
+
+-DS18B20s share a single data pin with a 4.7 kΩ pull-up resistor to 3V3.
+
+-LED has a 330 Ω resistor in series to limit current.
+
+-Reed switch uses INPUT_PULLUP in code, so no external resistor is required.
+
+-UPS module powers the ESP32 via 5 V pin; battery backup prevents false resets.
+
+#Future Improvements
+-Wi-Fi integration for push notifications
+
+-OLED display module for local readings
+
+-Waterproof enclosure for outdoor mounting
+
+-Logging to microSD card
