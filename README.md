@@ -1,36 +1,72 @@
-# outdoor-freezer-monitor
+# Outdoor Freezer Monitor
 
+## Overview
+This project is an **early warning system** for an outdoor freezer.  
+The freezer sometimes warms up due to the door being left ajar or an internal fault, causing ice cream (and other contents) to melt.  
+This device uses an **ESP32** with temperature sensors and a reed switch to detect both **rising temperatures** and **door open events**, triggering **LED and buzzer alerts**.
 
-# The problem
-the outside freezer sometimes randomly gets warm or someone doesnt close the door all the way and the ice cream melts. I want an early warning system that alerts me to the temp raising
+---
 
+## Features
+- **Dual temperature monitoring** (inside & outside the freezer) via **DS18B20** sensors.
+- **Door open detection** using a magnetic reed switch.
+- **Audible alert** with buzzer and **visual alert** with LED.
+- **Battery backup** via UPS module to ensure operation during brief power outages.
+- Designed for **easy hardware maintenance** using screw terminals and modular wiring.
+- Future upgrades planned for:
+  - OLED/LCD display for real-time readings
+  - Wi-Fi/MQTT alerts
+  - Data logging
 
-# ESP32 Temperature & Security Monitor
+---
 
-This project uses an ESP32 to:
-- Monitor inside & outside temperatures using DS18B20 sensors
-- Trigger a buzzer & LED when the magnetic reed switch is activated
-- Display temperature readings on a connected display (future feature)
+## Hardware Components
+- **ESP32 Dev Board** – HTIT-WB32LA
+- **2× DS18B20** temperature sensors (waterproof, with 4.7 kΩ pull-up resistor between DATA and 3V3)
+- **Magnetic reed switch** for door open/close detection
+- **LED** (with 330 Ω series resistor)
+- **Buzzer** (active type, driven by GPIO)
+- **5 V UPS/Boost converter** with lithium battery pack
+- **Screw terminals** for power and signal distribution
+- **Dupont jumper wires**, hookup wire, and heat shrink tubing
 
-## Hardware
-- ESP32 Dev Board HTIT-WB32LA
-- 2x DS18B20 temperature sensors
-- Magnetic reed switch
-- LED + 330Ω resistor
-- Buzzer
-- 4.7kΩ pull-up resistor for DS18B20 data line
-- 5V UPS/Boost converter & battery pack
+---
 
-## Pin Assignments
-| Component           | Pin   |
-|--------------------|-------|
-| Buzzer             | GPIO22 |
-| LED                | GPIO13 |
-| Magnetic reed      | GPIO36 |
-| DS18B20 Data       | GPIO37 |
-| Power 3.3V         | 3V3    |
-| Power 5V           | 5V Pin |
+## Pin Assignments (current build)
+| Component           | ESP32 Pin | Notes |
+|---------------------|-----------|-------|
+| Buzzer              | GPIO22    | Active buzzer |
+| LED (with 330 Ω)    | GPIO13    | Lights when door open or temp too high |
+| Magnetic reed switch| GPIO32    | `INPUT_PULLUP` in code; GND on other side |
+| DS18B20 Data        | GPIO25    | Both sensors share this pin |
+| DS18B20 Power       | 3V3       | Shared |
+| DS18B20 Ground      | GND       | Shared |
+| UPS Output +        | 5V pin    | ESP32 power input |
+| UPS Output –        | GND       | Ground bus |
+
+---
 
 ## Wiring Diagram
 ![Freezer Sensor mk1_bb](https://github.com/user-attachments/assets/4d910350-78e9-47eb-bb75-cd98e599055e)
 
+---
+
+## Software Setup
+
+### 1. Install Arduino IDE & ESP32 Support
+- Download Arduino IDE from [arduino.cc](https://www.arduino.cc/en/software)
+- Add ESP32 boards via  
+  **File → Preferences → Additional Boards Manager URLs**: https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json  
+- Install “esp32” from **Tools → Board → Board Manager**.
+
+### 2. Install Required Libraries
+In Arduino IDE:
+- **Sketch → Include Library → Manage Libraries…**
+- Install:
+- `OneWire` by Paul Stoffregen
+- `DallasTemperature` by Miles Burton
+
+### 3. Load Code
+- Clone this repository:
+```bash
+git clone https://github.com/wJollie/outdoor-freezer-monitor.git
